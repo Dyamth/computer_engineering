@@ -10,7 +10,7 @@
 % Adjusts page dimensions
 \usepackage{geometry}
 % Optional: Bigger margins (more space for text)
-% \textwidth=17.5cm \oddsidemargin=-0.5cm \topmargin=-2cm \textheight=24cm
+%\textwidth=17.5cm \oddsidemargin=-0.5cm \topmargin=-2cm \textheight=24cm
 
 % Graphics
 % Allows inclusion of graphics
@@ -19,6 +19,8 @@
 \usepackage{psfrag}
 % Plots data
 \usepackage{pgfplots}
+% Placement of figures and environments
+\usepackage{float}
 
 % Mathematics
 % Mathematical symbols and fonts
@@ -115,15 +117,222 @@
 \usepgfplotslibrary{colorbrewer}
 \pgfplotsset{width=8cm,compat=1.9}
 
+% Misc preamble commands
+
+% In-functions
+
+% No-numbered chapter that also appears on table of contents
+\newcommand{\cNLCh}[1]{
+    \chapter*{#1}
+    \addcontentsline{toc}{chapter}{#1}
+    \addtocounter{chapter}{1}
+    \setcounter{section}{0}
+}
+
+% No-numbered section that also appears on table of contents
+\newcommand{\cNLS}[1]{
+    \chapter*{#1}
+    \addcontentsline{toc}{section}{#1}
+    \addtocounter{section}{1}
+    \setcounter{subsection}{0}
+}
+
+% No-numbered chapter that also appears on table of contents
+\newcommand{\cNLSs}[1]{
+    \chapter*{#1}
+    \addcontentsline{toc}{subsection}{#1}
+    \addtocounter{subsection}{1}
+}
+
+% No-numbered chapter that also appears on table of contents
+\newcommand{\nLCh}[1]{
+    \chapter*{#1}
+    \addcontentsline{toc}{chapter}{#1}
+}
+
+% No-numbered section that also appears on table of contents
+\newcommand{\nLS}[1]{
+    \chapter*{#1}
+    \addcontentsline{toc}{section}{#1}
+}
+
+% No-numbered chapter that also appears on table of contents
+\newcommand{\nLSs}[1]{
+    \chapter*{#1}
+    \addcontentsline{toc}{subsection}{#1}
+}
+
 \title{Paradigmas de Programación\\
 \textsc{Notas}}
 \author{Emerson Monge H.}
 \date{II Semestre 2024}
 \begin{document}
-    \maketitle
+    % Misc in-document commands
+    \renewcommand{\chaptername}{Capítulo}
+    \renewcommand{\contentsname}{Contenidos}
 
-    \tableofcontents
+    \maketitle
     
+    % Avoid contents chapter appearing in itself
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+    \tableofcontents
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+    \cNLCh{Introducción}
+
+    El estudio de los lenguajes de programación busca maneras de diseñar lenguajes que combinen poder expresivo, simplicidad y eficiencia.
+
+    El estudio de lenguajes de programación ayuda con el desarrollo de algoritmos eficaces, el uso, las elecciones, el aprendizaje y diseño de los lenguajes.
+
+    \subsubsection*{Requisitos de un Lenguaje de Programación}
+
+    A fin de que un lenguaje de programación sea considerado como tal debe cumplir con:
+
+    \begin{enumerate}
+        \item Ser \textbf{universal} de manera que para todo problema que pueda resolverse en una computadora debe poder programarse la solución en el lenguaje independientemente de su tamaño.
+        
+        \item Ser \textbf{natural} para facilitar (como mínimo) la resolución de problemas del área de aplicación.
+        
+        \item \textbf{Implementable} de manera que todo programa bien formado en el lenguaje pueda ejecutarse sin problemas.
+    \end{enumerate}
+    
+    \subsection*{Sintaxis vs. Semántica}
+
+    La sintaxis se refiere a la parte del lenguaje que afecta cómo los programas deben ser \textbf{escritos} por los programadores. La semántica determina cómo los programas con \textbf{compuestos} por los programadores y cómo son \textbf{comprendidos e interpretados} por el computador.
+
+    \subsection*{Procesadores de Lenguajes}
+
+    Hace referencia a los sistemas que lleven a cabo el procesamiento, ejecución o la preparación para la ejecución de los programas. Aquí están incluídos:
+
+    \begin{enumerate}
+        \item Compiladores
+        \item Intérpretes
+        \item Herramientas auxiliares como editores de código y debbugers
+    \end{enumerate}
+    
+    \subsection*{Programas de Alto Nivel}
+
+    Se consideran de alto nivel aquellos programas que sean independientes de la máquina donde se ejecutan. Son compilados en lenguaje máquina, interpretados de manera directa o una combinación de ambos.
+
+    \section{Historia de los lenguajes de programación}
+
+    Los primeros lenguajes de programación de alto nivel fueron desarrollados en los años 50. En esta época se desconocía si era factible una traducción automática entre un lenguaje orientado a usuarios y el lenguaje máquina.
+
+    \section{Evolución de los lenguajes de programación}
+
+    A partir de la invención de los lenguajes de alto nivel, muchos lenguajes han surgido combinando conceptos de lenguajes anteriores con nuevos enfoques. \\
+
+    Los lenguajes actuales no deben considerarse como el producto último y definitivo del diseño de lenguajes dado que nuevos conceptos y paradigmas aún hoy se están desarrollando.
+
+    \subsection*{Paradigmas de Programación}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|m{0.45\linewidth}|m{0.45\linewidth}|}
+            \hline
+            Paradigma & Descripción\\\hline
+            Imperativo & Uso de comandos para actualizar variables caracterizado por el uso de variables, comandos y procedimientos.\\\hline
+            Orientado a Objetos & Las variables pueden accederse únicamente por medio de operaciones asociadas a ellas caracterizado por el uso de objetos, clases y herencia.\\\hline
+            Funcional & Hace uso de funciones como objetos de primera clase con avanzados sistemas de tipos. Se basan en funciones sobre listas y árboles, permiten la resolución de problemas \textbf{sin el uso de variables}.\\\hline 
+            Lógico & Uso de principios lógicos para hacer deducciones que resuelven problemas Caracterizado por el uso de relaciones. Se basan en un subconjunto de la lógica matemática. Se infieren asociaciones entre valores en lugar de calcular valores de salida a partir de valores de entrada.\\\hline
+        \end{tabular}
+        \caption{Paradigmas de Programación}
+
+        
+    \end{table}
+    
+    \section*{Lenguajes de Programación}
+    
+    \begin{itemize}
+        \item \textbf{FORTRAN (Formula Translating System)} fue desarrollado por IBM en 1957, introduciendo expresiones simbólicas, arreglos y subprogramas con parámetros. Inicialmente de bajo nivel, evolucionó hasta su estandarización en 1997.
+        \item \textbf{COBOL (Common Business-Oriented Language)}, creado en 1959, se destacó por su capacidad de descripción de datos y aplicaciones no numéricas, con su última versión estandarizada en 2002.
+        \item \textbf{ALGOL 60 (Algorithmic Language)}, sucesor de ALGOL 58 y creado en 1960, fue pionero en el uso de estructuras de bloques y tuvo una gran influencia en lenguajes posteriores como CPL, BCPL, Simula y Pascal.
+        \item \textbf{PL/I (Programming Language 1)}, propuesto por IBM en 1970, combinó capacidades numéricas y de procesamiento de datos de FORTRAN, ALGOL y COBOL. Introdujo manejo de excepciones y concurrencia, aunque resultó ser un lenguaje complejo y difícil de programar.
+        \item \textbf{Pascal}, creado por Niklaus Wirth entre 1968 y 1969, fue popular en la enseñanza de principios de programación debido a su simplicidad y estructura eficiente.
+        \item \textbf{C}, desarrollado por Dennis Ritchie entre 1969 y 1972, fue diseñado para UNIX y permitió programación tanto a bajo como a alto nivel. Su uso inadecuado puede resultar en sistemas no portables y difíciles de mantener.
+        \item \textbf{C++}, diseñado por Bjarne Stroustrup a mediados de los años 80, extendió C con mecanismos para la manipulación de objetos, popularizando la programación orientada a objetos.
+        \item \textbf{Java}, simplificación de C++ creada para programación distribuida y concurrente, es conocido por su portabilidad gracias a la máquina virtual Java.
+        \item \textbf{LISP}, especificado por John McCarthy en 1958, fue el primer lenguaje funcional basado en listas y soportó variables y asignaciones.
+        \item \textbf{Prolog (Programming in Logic)}, ideado en los años 70, es un clásico de la programación lógica, eficiente en su forma pura, aunque ampliado con características no lógicas para mayor utilidad.
+    \end{itemize}
+
+    \cNLCh{Interpretación recursiva directa}
+
+    \section{Interpretación de un lenguaje imperativo}
+
+    \section{Interpretación de un lenguaje funcional}
+
+    \cNLCh{Programación funcional}
+
+    \section{Principios de diseño y programación funcional}
+
+    \section{Streams (evaluación perezosa)}
+
+    \section{Programación funcional con tipos}
+
+    \section{Polimorfismo paramétrico}
+
+    \cNLCh{Programación lógica}
+
+    \section{Relaciones vs. funciones}
+
+    \section{Hechos y consultas}
+
+    \section{Cálculo de predicados}
+
+    \section{Dominios, datos compuestos y listas}
+
+    \section{Unificación}
+
+    \section{Control de flujo}
+
+    \section{Backtracking y orden de descripción}
+
+    \section{Corte y Fail}
+
+    \cNLCh{Programación imperativa}
+
+    \section{Características principales}
+
+    \section{Estructuras de control}
+
+    \section{Ámbito y alcance de variables}
+
+    \section{Dominios, datos compuestos y listas}
+
+    \cNLCh{Programación orientada a objetos}
+
+    \section{Objetos y mensajes}
+
+    \section{Expresiones y aritmética}
+
+    \section{Clases y métodos}
+
+    \section{Instancia y tipos de variables}
+
+    \section{Herencia y polimorfismo}
+
+    \section{Jerarquía de clases}
+
+    \section{Colecciones}
+
+    \section{Principios de diseño}
+
+    \section{Bloques de código y mensajes en cascada}
+
+    \section{Diferencias con lenguajes basados en OO [lenguaje ilustrativo: Visual Basic]}
+
+    \cNLCh{Elementos avanzados de lenguajes de programación}
+
+    \section{Concurrencia, paralelismo y distribución}
+
+    \section{Sistema de tipos}
+
+    \section{Ligas entre programas de distintos lenguajes}
+
+    \section{Elementos del diseño de lenguajes de programación}
+
+    \section{Evaluación y selección de lenguajes de programación}
 
 
 
