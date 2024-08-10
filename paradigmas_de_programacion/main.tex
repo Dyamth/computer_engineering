@@ -63,6 +63,8 @@
 \usepackage{titlesec}
 % Commenting out sections of text
 \usepackage{comment}
+% Line spacing
+\usepackage{setspace}
 
 % Citations and references
 % Improved citation handling
@@ -121,7 +123,7 @@
 
 % In-functions
 
-% No-numbered chapter that also appears on table of contents
+% No-numbered chapter that also appears on table of contents and counts as a numbered chapter
 \newcommand{\cNLCh}[1]{
     \chapter*{#1}
     \addcontentsline{toc}{chapter}{#1}
@@ -129,7 +131,7 @@
     \setcounter{section}{0}
 }
 
-% No-numbered section that also appears on table of contents
+% No-numbered section that also appears on table of contents and count as a numbered section
 \newcommand{\cNLS}[1]{
     \chapter*{#1}
     \addcontentsline{toc}{section}{#1}
@@ -137,7 +139,7 @@
     \setcounter{subsection}{0}
 }
 
-% No-numbered chapter that also appears on table of contents
+% No-numbered chapter that also appears on table of contents and counts as a numbered subsection
 \newcommand{\cNLSs}[1]{
     \chapter*{#1}
     \addcontentsline{toc}{subsection}{#1}
@@ -162,22 +164,29 @@
     \addcontentsline{toc}{subsection}{#1}
 }
 
+% Surrounds with double quotes the given content
+\newcommand{\dblquotes}[1]{
+    \hspace{-5pt}{\textquotedblleft}#1{\textquotedblright}\hspace{-5pt}
+}
+
 \title{Paradigmas de Programación\\
 \textsc{Notas}}
 \author{Emerson Monge H.}
 \date{II Semestre 2024}
 \begin{document}
     % Misc in-document commands
+    
     \renewcommand{\chaptername}{Capítulo}
     \renewcommand{\contentsname}{Contenidos}
-
+    
     \maketitle
     
     % Avoid contents chapter appearing in itself
     \addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
     \tableofcontents
     \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
-
+    
+    
     \cNLCh{Introducción}
 
     El estudio de los lenguajes de programación busca maneras de diseñar lenguajes que combinen poder expresivo, simplicidad y eficiencia.
